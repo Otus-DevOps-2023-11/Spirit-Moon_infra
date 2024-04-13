@@ -1,0 +1,2 @@
+# Ignore Packer variables file
+packer/variables.json
