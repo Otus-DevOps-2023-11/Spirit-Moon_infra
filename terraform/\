@@ -1,0 +1,61 @@
+terraform {
+  required_providers {
+    yandex = {
+      source = "yandex-cloud/yandex"
+      version = "0.94.0"
+    }
+  }
+  required_version = ">= 0.13"
+}
+
+provider "yandex" {
+  token     = "y0_AgAAAAB1a2u1AATuwQAAAAEB2JcWAABMmNNnubxHLJHyow28ZjiqOBF_sw"
+  cloud_id  = "b1g6a228d4bbetm3bqem"
+  folder_id = "b1gm34pnp14i6vki7101"
+  zone      = "ru-central1-a"
+}
+
+resource "yandex_compute_instance" "app" {
+  name = "reddit-app"
+  platform_id =  "standard-v3"
+
+  resources {
+    cores  = 2
+    memory = 2
+  }
+
+  metadata = {
+    ssh-keys = "ubuntu:${file("~/.ssh/appuser.pub")}"
+  }
+
+  boot_disk {
+    initialize_params {
+      # Указать id образа созданного в предыдущем домашем задании
+      image_id = "fd878bhu1tgfra5lrfad"
+    }
+  }
+
+  network_interface {
+    # Указан id подсети default-ru-central1-a
+    subnet_id = "e9bh1uurepp9pnldbg5j"
+    nat       = true
+  }
+
+  connection {
+    type = "ssh"
+    host = yandex_compute_instance.app.network_interface.0.nat_ip_address
+    user = "ubuntu"
+    agent = false
+    # путь до приватного ключа
+    private_key = file("~/.ssh/appuser")
+  }
+
+  provisioner "file" {
+    source = "files/puma.service"
+    destination = "/tmp/puma.service"
+  }
+
+  provisioner "remote-exec" {
+    script = "files/deploy.sh"
+  }
+}

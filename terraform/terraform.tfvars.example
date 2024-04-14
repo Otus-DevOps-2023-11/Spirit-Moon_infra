@@ -1,0 +1,8 @@
+cloud_id                 = "f32t3sga3m"
+folder_id                = "2fs353gfs43t"
+image_id                 = "t4sgf43wtgsd"
+public_key_path          = "~/.ssh/appuser.pub"
+private_key_path          = "~/.ssh/appuser"
+subnet_id                = "sf3wy2ywsghsg"
+service_account_key_file = "key.json"
+token                    = "vs34y4wgws4y44ww"
