@@ -1,0 +1,7 @@
+# Ignore Packer variables file
+packer/variables.json
+*.tfstate
+*.tfstate.*.backup
+*.tfstate.backup
+*.tfvars
+.terraform/
