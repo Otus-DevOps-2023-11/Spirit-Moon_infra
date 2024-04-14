@@ -1,12 +1,12 @@
-#terraform {
-#  required_providers {
-#    yandex = {
-#      source  = "yandex-cloud/yandex"
-#      version = "0.94.0"
-#    }
-#  }
-#  required_version = ">= 0.13"
-#}
+terraform {
+  required_providers {
+    yandex = {
+      source  = "yandex-cloud/yandex"
+      version = "0.94.0"
+    }
+  }
+  required_version = ">= 0.13"
+}
 
 provider "yandex" {
   token     = var.token
@@ -16,7 +16,7 @@ provider "yandex" {
 }
 
 resource "yandex_compute_instance" "app" {
-  name        = "reddit-app"
+  name        = "reddit-test2"
   platform_id = "standard-v3"
 
   resources {
