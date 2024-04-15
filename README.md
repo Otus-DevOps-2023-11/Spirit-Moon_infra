@@ -2,5 +2,5 @@
 Spirit-Moon Infra repository
 
 HW 4
-testapp_IP = 158.160.111.15
+testapp_IP = 62.84.112.70
 testapp_port = 9292
