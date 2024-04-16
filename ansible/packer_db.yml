@@ -1,0 +1,19 @@
+---
+- name: Install and configure MongoDB
+  hosts: all
+  become: yes
+  tasks:
+    - name: Install MongoDB is installed
+      apt:
+        name: mongodb
+        state: present
+      register: install_result
+      until: install_result is succeeded
+      retries: 5
+      delay: 30
+
+    - name: Enable MongoDB service
+      systemd:
+        name: mongodb
+        enabled: yes
+        state: started

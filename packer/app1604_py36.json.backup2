@@ -1,0 +1,28 @@
+{
+    "builders": [
+        {
+            "type": "yandex",
+            "service_account_key_file": "{{user `service_account_key_file`}}",
+            "folder_id": "{{user `folder_id`}}",
+            "source_image_id": "fd8i12pq8iv9jeqanen7",
+            "image_name": "reddit-app-{{timestamp}}",
+            "image_family": "reddit-app",
+            "ssh_username": "ubuntu",
+            "platform_id": "standard-v3",
+            "use_ipv4_nat": "true"
+        }
+    ],
+    "provisioners": [
+	{
+	    "type": "shell",
+            "inline": [
+	      "sudo rm -rf /usr/bin/python3",
+              "sudo ln -s /usr/local/bin/python3.6 /usr/bin/python3"
+            ]
+	},
+	{
+            "type": "ansible",
+            "playbook_file": "ansible/packer_app.yml"
+        }
+    ]
+}
