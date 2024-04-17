@@ -34,4 +34,20 @@ resource "yandex_compute_instance" "app" {
   metadata = {
   ssh-keys = "ubuntu:${file(var.public_key_path)}"
   }
+
+  connection {
+    type  = "ssh"
+    host  = yandex_compute_instance.app.network_interface.0.nat_ip_address
+    user  = "ubuntu"
+    agent = false
+    # путь до приватного ключа
+    private_key = file(var.private_key_path)
+  }
+
+#  provisioner "remote-exec" {
+#    inline = [
+#      "sudo iptables -A INPUT -p tcp --dport 80 -j ACCEPT",
+#      "sudo service iptables save"
+#    ]
+#  }
 }

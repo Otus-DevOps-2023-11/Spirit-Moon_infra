@@ -22,20 +22,9 @@
                 "sudo apt-get install -y libssl-dev zlib1g-dev libncurses5-dev libncursesw5-dev libreadline-dev libsqlite3-dev libgdbm-dev libdb5.3-dev libbz2-dev libexpat1-dev liblzma-dev tk-dev"
             ]
         },
-        {
-            "type": "shell",
-            "inline": [
-                "wget https://www.python.org/ftp/python/3.6.15/Python-3.6.15.tgz",
-                "tar xvf Python-3.6.15.tgz",
-                "cd Python-3.6.15",
-                "./configure --enable-optimizations",
-                "make -j$(nproc)",
-                "sudo make altinstall"
-            ]
-        },
 	{
             "type": "ansible",
-            "playbook_file": "ansible/packer_app.yml"
+            "playbook_file": "ansible/playbooks/packer_app.yml"
         }
     ]
 }
