@@ -1,0 +1,21 @@
+---
+- name: Update apt cache and install packages
+  hosts: all
+  #gather_facts: no
+  become: yes
+  tasks:
+    #    - name: Update apt cache
+    #  apt:
+    #    update_cache: yes
+
+    - name: Install packages
+      shell: |
+        apt-get update
+        for attempt in {1..5}; do
+          apt-get install -y git ruby-full ruby-bundler build-essential
+          if [ $? -eq 0 ]; then
+            exit 0
+          fi
+          sleep 30
+        done
+        exit 1
