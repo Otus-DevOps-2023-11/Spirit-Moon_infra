@@ -1,5 +1,5 @@
 {
-    "service_account_key_file": "../terraform/files/key.json",
-    "folder_id": "bdgfdgfgd101",
+    "service_account_key_file": "files/key.json",
+    "folder_id": "b3526sf",
     "source_image_family": "ubuntu-1604-lts"
 }
