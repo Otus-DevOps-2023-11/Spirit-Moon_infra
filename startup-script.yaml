@@ -1,0 +1,24 @@
+#cloud-config
+datasource:
+  Ec2:
+    strict_id: false
+ssh_pwauth: no
+users:
+  - name: yc-user
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPKKTgJ2m6QICQGuxuS/ktw4Z6K12jWHXq7LiV3SmDFq romanov.artyom@gmail.com
+runcmd:
+  - |
+    #!/bin/bash
+    sudo apt update
+    sudo apt install -y ruby-full ruby-bundler build-essential
+    sudo apt install -y mongodb
+    sudo systemctl enable mongod
+    sudo systemctl start mongod
+    sudo apt update
+    sudo apt install -y git
+    git clone -b monolith https://github.com/express42/reddit.git /home/yc-user/reddit
+    su -l yc-user -c 'cd /home/yc-user/reddit && bundle install'
+    su -l yc-user -c 'cd /home/yc-user/reddit && puma -d'
